@@ -1,3 +1,4 @@
 *.pyc
 menus.lst
 config.py
+counter
