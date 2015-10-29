@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     day = time.localtime(time.time())[6]
 
-    choice_str = {3: ["vous pourrez choisir entre %s, %s ou %s"], 4: ["vous pourrez choisir entre %s ou %s ou %s voire %s"], 5: ["vous avez le choix : %s, %s, %s, %s ou %s"], 6: ["plein de bonnes choses : %s, %s, %s, %s, %s ou encore %s"]}
+    choice_str = {1: ["Bon, aujourd'hui pas de choix, ça sera :"], 2: ["Au choix : %s ou %s"], 3: ["vous pourrez choisir entre %s, %s ou %s"], 4: ["vous pourrez choisir entre %s ou %s ou %s voire %s"], 5: ["vous avez le choix : %s, %s, %s, %s ou %s"], 6: ["plein de bonnes choses : %s, %s, %s, %s, %s ou encore %s"]}
     if typeOfMeal == 0:
         entree = plates[day][typeOfMeal][0]
         dessert = plates[day][typeOfMeal][-1]
