@@ -30,35 +30,42 @@ def sayFood(food, chansToDisp, token):
 
 
 def parseMenu(menu_url, days):
+    menu_url = 'http://services.telecom-bretagne.eu/rak/rss/menus.xml'
     menuString = u2.urlopen(menu_url)
     menuString = menuString.read()
     menuXML = et.fromstring(menuString)
+    #menuXML is the root of the document, it contains the element described by the rss tag. The indicies are its children.
 
+    # Following the RAK's structure, menuXML[0][3] is the first item in channel, menuXML[0][3][3] is the description of the item
     weekStr = menuXML[0][3][3].text
 
-    # days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+    days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
 
     daysStr = []
 
     # Split for each days
     for day in days:
         temp = weekStr.split(day)
-        daysStr.append(temp[0])
-        weekStr = temp[1]
+        daysStr.append(temp[0]) # We append the first part
+        weekStr = temp[1] # We need to split again the second one
 
-    daysStr.pop(0)  #ozef du debut
+    daysStr.pop(0)  # The first entry is the link to the menu's page
 
     # Split for each meal
     daysMenu = []
     for dayStr in daysStr:
-        temp1 = dayStr.split('<STRONG>Dejeuner</STRONG>',1)
-        temp2 = temp1[1].split(' <BR/>***Rampe***<BR/>| <STRONG>Diner</STRONG> ',1)
+        temp = dayStr.split('<BR/>***Rampe***<BR/>| <STRONG>Dejeuner</STRONG> | ',1)
+        
+        temp2 = temp[1].split(' | <BR/>***Rampe***<BR/>| <STRONG>Diner</STRONG> | ',1)
         rampeDej = temp2[0]
-        temp3 = temp2[1].split(' <BR/>***Cafeteria***<BR/>| <STRONG>Dejeuner</STRONG> ',1)
+        temp3 = temp2[1].split(' | <BR/>***Cafeteria***<BR/>| <STRONG>Dejeuner</STRONG> | ',1)
+        print('temp3'+str(temp3)+'\n\n')
         rampeDin = temp3[0]
-        temp4 = temp3[1].split(' <BR/>***Cafeteria***<BR/>| <STRONG>Diner</STRONG> ')
+        temp4 = temp3[1].split(' | <BR/>***Cafeteria***<BR/>| <STRONG>Diner</STRONG> | ')
+        print('temp4 : '+str(temp4)+'\n\n')
         cafetDej = temp4[0]
-        temp5 = temp4[1].split(' <BR/>--- ')
+        
+        temp5 = temp4[1].split(' | <BR/>--- ')
         cafetDin = temp5[0]
 
         daysMenu.append([rampeDej,rampeDin,cafetDej,cafetDin])
