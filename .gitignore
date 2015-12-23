@@ -3,3 +3,4 @@
 menus.lst
 config.py
 counter
+db.sqlite3
