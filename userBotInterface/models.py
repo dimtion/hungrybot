@@ -2,6 +2,7 @@ from django.db import models
 
 class choice_str(models.Model):
     text = models.CharField(max_length=200)
+    nb_choice = models.IntegerField('Number of choice', default=0)
 
     def __unicode__(self):
         return self.text

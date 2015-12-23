@@ -81,7 +81,8 @@ def parseMenu(menu_url, days):
             for plate in plates:
                 try:
                     temp = plate.split('>',1)[1].split('<',1)[0]
-                    daysPlates[i][j].append(temp.encode('utf-8'))
+
+                    daysPlates[i][j].append(unicode(temp,'utf-8'))
                 except:
                     pass
 
