@@ -57,16 +57,23 @@ def parseMenu(menu_url, days):
         temp = dayStr.split('<BR/>***Rampe***<BR/>| <STRONG>Dejeuner</STRONG> | ',1)
         
         temp2 = temp[1].split(' | <BR/>***Rampe***<BR/>| <STRONG>Diner</STRONG> | ',1)
+
         rampeDej = temp2[0]
         temp3 = temp2[1].split(' | <BR/>***Cafeteria***<BR/>| <STRONG>Dejeuner</STRONG> | ',1)
-        print('temp3'+str(temp3)+'\n\n')
+
         rampeDin = temp3[0]
         temp4 = temp3[1].split(' | <BR/>***Cafeteria***<BR/>| <STRONG>Diner</STRONG> | ')
-        print('temp4 : '+str(temp4)+'\n\n')
-        cafetDej = temp4[0]
+        if (len(temp4) == 1): # There's nothing between Cafet Dej and Cafet Din : nothing announced
+            cafetDej = "None"
+            temp4 = temp4[0].split('<BR/>***Cafeteria***<BR/>| <STRONG>Diner</STRONG>')
+        else :
+            cafetDej = temp4[0]
         
         temp5 = temp4[1].split(' | <BR/>--- ')
-        cafetDin = temp5[0]
+        if (len(temp5) == 1):
+            cafetDin = "None"
+        else :
+            cafetDin = temp5[0]
 
         daysMenu.append([rampeDej,rampeDin,cafetDej,cafetDin])
 
@@ -81,8 +88,7 @@ def parseMenu(menu_url, days):
             for plate in plates:
                 try:
                     temp = plate.split('>',1)[1].split('<',1)[0]
-
-                    daysPlates[i][j].append(unicode(temp,'utf-8'))
+                    daysPlates[i][j].append(temp)
                 except:
                     pass
 
